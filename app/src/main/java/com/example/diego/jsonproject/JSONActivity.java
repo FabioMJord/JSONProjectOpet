@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.prefs.PreferenceChangeEvent;
 
 public class JSONActivity extends Activity {
 
@@ -57,7 +58,12 @@ public class JSONActivity extends Activity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            textJSON.setText(s);
+            Previsao previsao = Util.JSONtoPrevisao(s);
+            if(previsao != null){
+                String data = "Cidade: " + previsao.getCidade() + "\n";
+                data += "Temperatura: " + previsao.getTemperatura();
+                textJSON.setText(data);
+            }
         }
     }
 }
